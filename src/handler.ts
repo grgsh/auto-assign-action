@@ -5,6 +5,10 @@ import { PullRequest } from './pull_request'
 import { Client } from './types'
 import { PullRequestEvent } from '@octokit/webhooks-types'
 
+export interface UserGroups {
+  [key: string]: string[]
+}
+
 export interface Config {
   addReviewers: boolean
   addAssignees: boolean | string
@@ -19,8 +23,8 @@ export interface Config {
   skipKeywords: string[]
   useReviewGroups: boolean
   useAssigneeGroups: boolean
-  reviewGroups: { [key: string]: string[] }
-  assigneeGroups: { [key: string]: string[] }
+  reviewGroups: UserGroups
+  assigneeGroups: UserGroups
   runOnDraft?: boolean
 }
 

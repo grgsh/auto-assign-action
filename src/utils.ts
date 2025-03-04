@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import * as yaml from 'js-yaml'
-import { Config } from './handler'
+import { Config, UserGroups } from './handler'
 import { Client } from './types'
 
 export function chooseReviewers(owner: string, config: Config): string[] {
@@ -104,7 +104,17 @@ export function chooseUsersFromGroups(
   return users
 }
 
-export async function fetchConfigurationFile(client: Client, options) {
+type ConfigurationFileOptions = {
+  owner: string
+  repo: string
+  path: string
+  ref: string
+}
+
+export async function fetchConfigurationFile(
+  client: Client,
+  options: ConfigurationFileOptions
+) {
   const { owner, repo, path, ref } = options
   const result = await client.rest.repos.getContent({
     owner,
