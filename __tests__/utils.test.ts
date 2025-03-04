@@ -204,7 +204,7 @@ describe('fetchConfigurationFile', () => {
     const client = github.getOctokit('token')
 
     const config = await fetchConfigurationFile(client, {
-      owner: 'kentaro-m',
+      owner: 'grgsh',
       repo: 'auto-assign-action-test',
       path: '.github/auto_assign',
       ref: 'sha',
@@ -234,7 +234,7 @@ describe('fetchConfigurationFile', () => {
 
     expect(async () =>
       fetchConfigurationFile(client, {
-        owner: 'kentaro-m',
+        owner: 'grgsh',
         repo: 'auto-assign-action-test',
         path: '.github/auto_assign',
         ref: 'sha',

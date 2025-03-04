@@ -4,7 +4,7 @@
   "description": "Add reviewers to pull requests when pull requests are opened.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kentaro-m/auto-assign-action.git"
+    "url": "git+https://github.com/grgsh/auto-assign-action.git"
   },
   "main": "lib/main.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "package": "ncc build --source-map --license licenses.txt",
     "prepare": "husky install"
   },
-  "author": "Kentaro Matsushita",
+  "author": "Grzegorz Ilnicki, Kentaro Matsushita",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.6.0",

@@ -29,16 +29,16 @@ describe('handlePullRequest', () => {
         repository: {
           name: 'auto-assign',
           owner: {
-            login: 'kentaro-m',
+            login: 'grgsh',
           },
         },
       },
       repo: {
-        owner: 'kentaro-m',
+        owner: 'grgsh',
         repo: 'auto-assign',
       },
       issue: {
-        owner: 'kentaro-m',
+        owner: 'grgsh',
         repo: 'auto-assign',
         number: 1,
       },
