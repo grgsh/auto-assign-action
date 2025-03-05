@@ -1,7 +1,7 @@
 {
-  "name": "auto-assign-action",
+  "name": "auto-assign-action-with-group-filter",
   "version": "2.0.0",
-  "description": "Add reviewers to pull requests when pull requests are opened.",
+  "description": "Add reviewers to pull requests when pull requests are opened. A fork extended with ability to filter out groups to be used.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/grgsh/auto-assign-action.git"
