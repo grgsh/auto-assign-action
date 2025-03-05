@@ -1,5 +1,5 @@
-name: 'Auto Assign Action'
-description: 'Add reviewers to pull requests when pull requests are opened.'
+name: 'Auto Assign Action With Group Filter'
+description: 'Add reviewers to pull requests when pull requests are opened. A fork extended with ability to filter out groups to be used.'
 author: 'Grzegorz Ilnicki, Kentaro Matsushita'
 inputs:
   repo-token:
@@ -9,9 +9,12 @@ inputs:
   configuration-path:
     description: 'A path for the auto-assign configuration'
     default: '.github/auto_assign.yml'
+  group-filter:
+    description: 'A comma-separated list of groups to use for the auto-assign action'
+    default: ''
 runs:
   using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'user-plus'
-  color: 'blue'
+  color: 'purple'
