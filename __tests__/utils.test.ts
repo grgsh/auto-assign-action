@@ -1,8 +1,10 @@
+import { Config } from '../src/handler'
 import {
   chooseUsers,
   chooseUsersFromGroups,
   includesSkipKeywords,
   fetchConfigurationFile,
+  chooseReviewers,
 } from '../src/utils'
 import * as github from '@actions/github'
 
@@ -183,6 +185,40 @@ describe('chooseUsersFromGroups', () => {
     // THEN
     expect(list.length).toEqual(0)
     expect(list).toEqual([])
+  })
+})
+
+describe('chooseReviewers', () => {
+  test('should return only the reviewers from the desired groups', () => {
+    // GIVEN
+    const owner = 'owner'
+    const reviewers = {
+      groupA: ['groupA-1', 'groupA-2', 'groupA-3'],
+      groupB: ['groupB-1', 'groupB-2', 'groupB-3', 'groupB-4'],
+      groupC: ['groupC-1', 'groupC-2', 'groupC-3'],
+      groupD: ['groupD-1', 'groupD-2', 'owner'],
+    }
+    const numberOfReviewers = 4 // Pick 4 reviewers per group if possible
+
+    const config: Partial<Config> = {
+      useReviewGroups: true,
+      reviewGroups: reviewers,
+      numberOfReviewers: numberOfReviewers,
+      reviewers: [],
+    }
+
+    // WHEN
+    const list = chooseReviewers(owner, config as Config, [
+      'groupA',
+      'groupB',
+      'groupD',
+    ])
+
+    // THEN
+    expect(list.length).toEqual(9)
+    expect(list.slice(0, 3).every((el) => el.match(/groupA/))).toBeTruthy()
+    expect(list.slice(3, 7).every((el) => el.match(/groupB/))).toBeTruthy()
+    expect(list.slice(7, -1).every((el) => el.match(/groupD/))).toBeTruthy()
   })
 })
 

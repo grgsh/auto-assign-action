@@ -9,6 +9,9 @@ export async function run() {
     const configPath = core.getInput('configuration-path', {
       required: true,
     })
+    const groupFilter = core
+      .getInput('group-filter', { required: false })
+      .split(',')
 
     const client = github.getOctokit(token)
     const { repo, sha } = github.context
@@ -19,7 +22,7 @@ export async function run() {
       ref: sha,
     })
 
-    await handler.handlePullRequest(client, github.context, config)
+    await handler.handlePullRequest(client, github.context, config, groupFilter)
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error.message)

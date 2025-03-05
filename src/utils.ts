@@ -3,16 +3,25 @@ import * as yaml from 'js-yaml'
 import { Config, UserGroups } from './handler'
 import { Client } from './types'
 
-export function chooseReviewers(owner: string, config: Config): string[] {
+export function chooseReviewers(
+  owner: string,
+  config: Config,
+  groupFilter: string[] = []
+): string[] {
   const { useReviewGroups, reviewGroups, numberOfReviewers, reviewers } = config
   let chosenReviewers: string[] = []
   const useGroups: boolean =
     useReviewGroups && Object.keys(reviewGroups).length > 0
 
+  const filteredReviewGroups =
+    groupFilter.length > 0
+      ? pickGroups(reviewGroups, groupFilter)
+      : reviewGroups
+
   if (useGroups) {
     chosenReviewers = chooseUsersFromGroups(
       owner,
-      reviewGroups,
+      filteredReviewGroups,
       numberOfReviewers
     )
   } else {
@@ -20,6 +29,12 @@ export function chooseReviewers(owner: string, config: Config): string[] {
   }
 
   return chosenReviewers
+}
+
+function pickGroups(groups: UserGroups, groupFilter: string[]) {
+  return Object.fromEntries(
+    Object.entries(groups).filter(([k, _v]) => groupFilter.includes(k))
+  )
 }
 
 export function chooseAssignees(owner: string, config: Config): string[] {

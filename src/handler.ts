@@ -31,7 +31,8 @@ export interface Config {
 export async function handlePullRequest(
   client: Client,
   context: Context,
-  config: Config
+  config: Config,
+  groupFilter: string[] = []
 ) {
   if (!context.payload.pull_request) {
     throw new Error('the webhook payload is not exist')
@@ -103,7 +104,7 @@ export async function handlePullRequest(
 
   if (addReviewers) {
     try {
-      const reviewers = utils.chooseReviewers(owner, config)
+      const reviewers = utils.chooseReviewers(owner, config, groupFilter)
 
       if (reviewers.length > 0) {
         await pr.addReviewers(reviewers)
